@@ -34,7 +34,7 @@ function Table({ data }: TableProps) {
     setCharacter(char);
   };
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value);
+    setQuery(e.target.value.toLowerCase());
   };
 
   const addToFavoriteHandler = (char: Character) => {

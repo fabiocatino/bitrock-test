@@ -3,7 +3,7 @@ import { createContext, useState } from "react";
 import { Character } from "types/character";
 
 interface GlobalContextProps {
-  children?: JSX.Element | JSX.Element[];
+  children?: JSX.Element | JSX.Element[] | React.ReactNode;
   characters?: Character[];
   setCharacters?: React.Dispatch<React.SetStateAction<Character[]>>;
   favorites?: Character[];
