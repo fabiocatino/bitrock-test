@@ -1,8 +1,4 @@
 import styled from "styled-components";
 
-export const Container = styled.td`
-  &:hover {
-    background-color: gray;
-  }
-`;
+export const Container = styled.td``;
 Container.displayName = "Container";

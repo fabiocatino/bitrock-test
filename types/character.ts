@@ -1,4 +1,4 @@
-export interface Character {
+export type Character = {
   id: number;
   name: string;
   status: string;
@@ -17,4 +17,4 @@ export interface Character {
   episode: string[];
   url: string;
   created: Date;
-}
+};

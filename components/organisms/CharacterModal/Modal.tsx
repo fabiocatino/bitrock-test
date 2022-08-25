@@ -30,10 +30,15 @@ export default function Modal({ close, character }: ModalProps): ReactElement {
     episodesArray.push(episode.split("/").pop())
   );
   const fetchEpisodesTitle = useCallback(async () => {
-    const resp = await axios.get(
-      `https://rickandmortyapi.com/api/episode/${episodesArray}`
-    );
-    setEpisodesTitle(resp.data);
+    try {
+      const resp = await axios.get(
+        `https://rickandmortyapi.com/api/episode/${episodesArray}`
+      );
+      setEpisodesTitle(resp.data);
+    } catch (error) {
+      throw new Error("Something went wrong");
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

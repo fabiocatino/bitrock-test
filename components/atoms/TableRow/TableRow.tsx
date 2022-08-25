@@ -2,7 +2,7 @@ import React from "react";
 import { Container } from "./styles";
 
 type TableRowProps = {
-  children?: any;
+  children: JSX.Element[] | string;
 };
 
 const TableRow = ({ children }: TableRowProps) => {

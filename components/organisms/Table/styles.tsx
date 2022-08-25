@@ -30,6 +30,9 @@ export const NameContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  &:hover {
+    background-color: gray;
+  }
 `;
 NameContainer.displayName = "NameContainer";
 

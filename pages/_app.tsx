@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { GlobalContextProvider } from "context/GlobalContext";
+import Navbar from "atoms/Navbar";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -14,7 +15,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta charSet="utf-8" />
         <title>Rick and Morty</title>
       </Head>
-
+      <Navbar />
       <Component {...pageProps} />
     </GlobalContextProvider>
   );
