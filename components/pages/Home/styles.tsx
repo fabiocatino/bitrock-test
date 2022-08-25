@@ -5,17 +5,12 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
-  width: 100%;
-  /* background-image: url("/6798923.jpg");
-  background-repeat: no-repeat, repeat;
-  background-position: center;
-  background-size: cover; */
+  padding: 1rem;
 `;
 Container.displayName = "Container";
 
 export const Header = styled.h1`
-  font-size: 5em;
+  font-size: 2em;
   align-self: flex-start;
 `;
 Header.displayName = "Header";

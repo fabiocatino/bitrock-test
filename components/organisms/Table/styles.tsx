@@ -7,6 +7,11 @@ export const Container = styled.div`
   flex-direction: column;
   gap: 0.5rem;
   padding: 1rem;
+  width: 800px;
+
+  @media screen and (max-width: 780px) {
+    width: 100%;
+  }
 `;
 Container.displayName = "Container";
 
@@ -31,7 +36,7 @@ export const NameContainer = styled.div`
   align-items: center;
   gap: 0.5rem;
   &:hover {
-    background-color: gray;
+    filter: brightness(0.5);
   }
 `;
 NameContainer.displayName = "NameContainer";

@@ -11,7 +11,12 @@ import {
 } from "react";
 import { Character } from "types/character";
 import { Episode } from "types/episode";
-import { CardContainer, EpisodesContainer, ModalContainer } from "./styles";
+import {
+  CardContainer,
+  EpisodesContainer,
+  ImageContainer,
+  ModalContainer,
+} from "./styles";
 
 interface ModalProps {
   close: () => void;
@@ -49,13 +54,9 @@ export default function Modal({ close, character }: ModalProps): ReactElement {
   return (
     <ModalContainer onClick={handleClickOut}>
       <CardContainer ref={card}>
-        <Image
-          objectFit="cover"
-          width={200}
-          height={200}
-          src={character!.image}
-          alt="image"
-        />
+        <ImageContainer>
+          <Image layout="fill" src={character!.image} alt="image" />
+        </ImageContainer>
         <Text>Name: {character?.name}</Text>
         <Text>Status: {character?.status}</Text>
         <Text>Species: {character?.species}</Text>
@@ -67,7 +68,7 @@ export default function Modal({ close, character }: ModalProps): ReactElement {
           <EpisodesContainer>
             <h2>Appears in: </h2>
             {episodesTitle?.map((episode: Episode, index: number) => (
-              <span key={index}>{episode?.name}</span>
+              <Text key={index}>{episode?.name}</Text>
             ))}
           </EpisodesContainer>
         )}

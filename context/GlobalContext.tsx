@@ -1,3 +1,4 @@
+import useLocalStorage from "hooks/useLocalStorage";
 import { createContext, useState } from "react";
 import { Character } from "types/character";
 

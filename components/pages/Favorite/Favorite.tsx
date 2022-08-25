@@ -1,16 +1,17 @@
-import { GlobalContext } from "context/GlobalContext";
+import useLocalStorage from "hooks/useLocalStorage";
 import Table from "organisms/Table";
-import { useContext } from "react";
+import { Character } from "types/character";
 import { Container, Header } from "./styles";
 
-type Props = {};
+type FavoriteProps = {};
 
-function Favorite({}: Props) {
-  const { favorites } = useContext(GlobalContext);
+function Favorite({}: FavoriteProps) {
+  const [localStorageFavorites] = useLocalStorage<Character[]>("favorites", []);
+
   return (
     <Container>
       <Header>Rick and Morty</Header>
-      <Table {...{ data: favorites }} />
+      <Table {...{ data: localStorageFavorites }} />
     </Container>
   );
 }

@@ -2,9 +2,10 @@ import SearchBar from "atoms/SearchBar";
 import TableCell from "atoms/TableCell";
 import TableHeader from "atoms/TableHeader";
 import TableRow from "atoms/TableRow";
-import { GlobalContext } from "context/GlobalContext";
+import useLocalStorage from "hooks/useLocalStorage";
+import { useRouter } from "next/router";
 import Modal from "organisms/CharacterModal";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { MdFavorite } from "react-icons/md";
 import { Character } from "types/character";
 import {
@@ -23,7 +24,10 @@ function Table({ data }: TableProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [character, setCharacter] = useState<Character>();
   const [query, setQuery] = useState("");
-  const { favorites, setFavorites } = useContext(GlobalContext);
+  const [localStorageFavorites, setLocalStorageFavorites] = useLocalStorage<
+    any
+  >("favorites", []);
+  const router = useRouter();
 
   const handleClick = (char: Character) => {
     setIsOpen(true);
@@ -34,12 +38,12 @@ function Table({ data }: TableProps) {
   };
 
   const addToFavoriteHandler = (char: Character) => {
-    setFavorites?.((existingFavorites) => [...existingFavorites, char]);
+    setLocalStorageFavorites([...localStorageFavorites, char]);
   };
 
   const removeFromFavoriteHandler = (char: Character) => {
-    setFavorites?.((existingFavorites) =>
-      existingFavorites.filter((selected) => selected.id !== char.id)
+    setLocalStorageFavorites?.((prevFavorites: Character[]) =>
+      prevFavorites?.filter((selected: any) => selected.id !== char.id)
     );
   };
   return (
@@ -50,38 +54,48 @@ function Table({ data }: TableProps) {
         <thead>
           <TableRow>
             <TableHeader>Name</TableHeader>
-            <TableHeader>Add to favorite</TableHeader>
+            <TableHeader>
+              {router.pathname === "/favorites"
+                ? "Remove from favorites"
+                : "Add to favorites"}
+            </TableHeader>
           </TableRow>
         </thead>
         <tbody>
-          {data
-            ?.filter((char) => char.name.toLowerCase().includes(query))
-            .map((char: Character, index: number) => (
-              <TableRow key={char?.id}>
-                <TableCell>
-                  <NameContainer onClick={() => handleClick(char)}>
-                    <Avatar
-                      width={50}
-                      height={50}
-                      src={char?.image}
-                      alt="image"
-                    />
-                    {char?.name}
-                  </NameContainer>
-                </TableCell>
-                <TableCell>
-                  {favorites?.find((fav) => fav.id === char.id) ? (
-                    <MdFavorite
-                      onClick={() => removeFromFavoriteHandler(char)}
-                    />
-                  ) : (
-                    <AddToFavoriteIcon
-                      onClick={() => addToFavoriteHandler(char)}
-                    />
-                  )}
-                </TableCell>
-              </TableRow>
-            ))}
+          {data &&
+            data?.length >= 1 &&
+            data
+              ?.filter((char) => char.name.toLowerCase().includes(query))
+              .map((char: Character) => (
+                <TableRow key={char?.id}>
+                  <TableCell>
+                    <NameContainer onClick={() => handleClick(char)}>
+                      <Avatar
+                        width={20}
+                        height={20}
+                        src={char?.image}
+                        alt="image"
+                      />
+                      {char?.name}
+                    </NameContainer>
+                  </TableCell>
+                  <TableCell>
+                    {localStorageFavorites?.find(
+                      (fav: Character) => fav.id === char.id
+                    ) ? (
+                      <MdFavorite
+                        size={30}
+                        onClick={() => removeFromFavoriteHandler(char)}
+                      />
+                    ) : (
+                      <AddToFavoriteIcon
+                        size={30}
+                        onClick={() => addToFavoriteHandler(char)}
+                      />
+                    )}
+                  </TableCell>
+                </TableRow>
+              ))}
         </tbody>
       </TableContainer>
     </Container>
