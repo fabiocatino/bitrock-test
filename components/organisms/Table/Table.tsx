@@ -5,25 +5,32 @@ import TableRow from "atoms/TableRow";
 import useLocalStorage from "hooks/useLocalStorage";
 import { useRouter } from "next/router";
 import Modal from "organisms/CharacterModal";
-import { useState } from "react";
+import { MouseEventHandler, useState } from "react";
+import {
+  AiOutlineSortAscending,
+  AiOutlineSortDescending,
+} from "react-icons/ai";
 import { MdFavorite } from "react-icons/md";
 import { Character } from "types/character";
 import {
   AddToFavoriteIcon,
   Avatar,
   Container,
+  HeaderContainer,
   NameContainer,
   TableContainer,
 } from "./styles";
 
 type TableProps = {
   data?: Character[];
+  setCharacters?: React.Dispatch<React.SetStateAction<Character[]>>;
 };
 
-function Table({ data }: TableProps) {
+function Table({ data, setCharacters }: TableProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [character, setCharacter] = useState<Character>();
   const [query, setQuery] = useState("");
+  const [isAsc, setIsAsc] = useState(false);
   const [localStorageFavorites, setLocalStorageFavorites] = useLocalStorage<
     any
   >("favorites", []);
@@ -37,14 +44,27 @@ function Table({ data }: TableProps) {
     setQuery(e.target.value.toLowerCase());
   };
 
+  //Adds favorites to localstorage so they're not gone after refreshing
   const addToFavoriteHandler = (char: Character) => {
     setLocalStorageFavorites([...localStorageFavorites, char]);
   };
 
   const removeFromFavoriteHandler = (char: Character) => {
     setLocalStorageFavorites?.((prevFavorites: Character[]) =>
-      prevFavorites?.filter((selected: any) => selected.id !== char.id)
+      prevFavorites?.filter((selected: Character) => selected.id !== char.id)
     );
+  };
+
+  //Compares the first name with the second one, and sorts it alphabetically
+  const sortHandler = (e: any) => {
+    const newList = [...data!];
+    const sortedList = newList.sort((a, b) =>
+      e.target.id === "asc"
+        ? a.name.localeCompare(b.name)
+        : b.name.localeCompare(a.name)
+    );
+    e.target.id === "asc" ? setIsAsc(false) : setIsAsc(true);
+    setCharacters?.(sortedList);
   };
   return (
     <Container>
@@ -53,7 +73,16 @@ function Table({ data }: TableProps) {
       <TableContainer>
         <thead>
           <TableRow>
-            <TableHeader>Name</TableHeader>
+            <TableHeader>
+              <HeaderContainer>
+                Name{" "}
+                {isAsc ? (
+                  <AiOutlineSortAscending id="asc" onClick={sortHandler} />
+                ) : (
+                  <AiOutlineSortDescending onClick={sortHandler} />
+                )}
+              </HeaderContainer>
+            </TableHeader>
             <TableHeader>
               {router.pathname === "/favorites"
                 ? "Remove from favorites"

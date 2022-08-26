@@ -59,3 +59,10 @@ export const AddToFavoriteIcon = styled(MdFavoriteBorder)`
   cursor: pointer;
 `;
 AddToFavoriteIcon.displayName = "AddToFavoriteIcon";
+
+export const HeaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`;
+HeaderContainer.displayName = "HeaderContainer";

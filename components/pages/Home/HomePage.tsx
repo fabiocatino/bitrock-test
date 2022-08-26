@@ -31,7 +31,7 @@ function HomePage({}: HomePageProps) {
   return (
     <Container>
       <Header>Rick and Morty</Header>
-      <Table {...{ data: characters }} />
+      <Table {...{ data: characters, setCharacters }} />
       <Pagination
         {...{
           pages,

@@ -2,7 +2,7 @@ import React from "react";
 import { CustomText } from "./styles";
 
 type TextProps = {
-  children: any;
+  children: React.ReactNode;
 };
 
 const Text = ({ children }: TextProps) => {
