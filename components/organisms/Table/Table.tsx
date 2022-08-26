@@ -5,18 +5,13 @@ import TableRow from "atoms/TableRow";
 import useLocalStorage from "hooks/useLocalStorage";
 import { useRouter } from "next/router";
 import Modal from "organisms/CharacterModal";
-import { MouseEventHandler, useState } from "react";
-import {
-  AiOutlineSortAscending,
-  AiOutlineSortDescending,
-} from "react-icons/ai";
+import { useState } from "react";
 import { MdFavorite } from "react-icons/md";
 import { Character } from "types/character";
 import {
   AddToFavoriteIcon,
   Avatar,
   Container,
-  HeaderContainer,
   NameContainer,
   TableContainer,
 } from "./styles";
@@ -55,17 +50,6 @@ function Table({ data, setCharacters }: TableProps) {
     );
   };
 
-  //Compares the first name with the second one, and sorts it alphabetically
-  const sortHandler = (e: any) => {
-    const newList = [...data!];
-    const sortedList = newList.sort((a, b) =>
-      e.target.id === "asc"
-        ? a.name.localeCompare(b.name)
-        : b.name.localeCompare(a.name)
-    );
-    e.target.id === "asc" ? setIsAsc(false) : setIsAsc(true);
-    setCharacters?.(sortedList);
-  };
   return (
     <Container>
       {isOpen && <Modal {...{ close: () => setIsOpen(false), character }} />}
@@ -73,16 +57,7 @@ function Table({ data, setCharacters }: TableProps) {
       <TableContainer>
         <thead>
           <TableRow>
-            <TableHeader>
-              <HeaderContainer>
-                Name{" "}
-                {isAsc ? (
-                  <AiOutlineSortAscending id="asc" onClick={sortHandler} />
-                ) : (
-                  <AiOutlineSortDescending onClick={sortHandler} />
-                )}
-              </HeaderContainer>
-            </TableHeader>
+            <TableHeader>Name </TableHeader>
             <TableHeader>
               {router.pathname === "/favorites"
                 ? "Remove from favorites"

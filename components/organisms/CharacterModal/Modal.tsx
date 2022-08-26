@@ -9,8 +9,8 @@ import {
   useRef,
   useState,
 } from "react";
-import { MdOutlineExpandLess, MdOutlineExpandMore } from "react-icons/md";
 import { AiOutlineClose } from "react-icons/ai";
+import { MdOutlineExpandLess, MdOutlineExpandMore } from "react-icons/md";
 import { Character } from "types/character";
 import { Episode } from "types/episode";
 import {
@@ -54,7 +54,6 @@ export default function Modal({ close, character }: ModalProps): ReactElement {
   useEffect(() => {
     fetchEpisodesTitle();
   }, [fetchEpisodesTitle]);
-
   return (
     <ModalContainer onClick={handleClickOut}>
       <CardContainer ref={card}>
@@ -64,7 +63,7 @@ export default function Modal({ close, character }: ModalProps): ReactElement {
           role="graphics-document"
         />
         <ImageContainer>
-          <Image layout="fill" src={character!.image} alt="image" />
+          <Image layout="fill" src={character?.image || ""} alt="image" />
         </ImageContainer>
         <Text>Name: {character?.name}</Text>
         <Text>Status: {character?.status}</Text>

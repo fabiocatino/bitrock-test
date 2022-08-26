@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
+import useMobile from "hooks/useMobile";
+import { useEffect, useState } from "react";
 import { Button } from "./styles";
 
 type PaginationProps = {
@@ -23,6 +24,7 @@ function Pagination({
     setCurrentPage(index);
     setIsActiveIndex(index);
   };
+  const { isMobile } = useMobile(false);
   const [maxPageLimit, setMaxPageLimit] = useState(maxPages);
   const [minPageLimit, setMinPageLimit] = useState(minPages);
 
@@ -30,7 +32,6 @@ function Pagination({
   for (let i = 0; i <= pages; i++) {
     pagesLength.push(i);
   }
-
   let pageIncrementEllipses = null;
   if (pagesLength.length > maxPageLimit) {
     pageIncrementEllipses = (
@@ -78,24 +79,10 @@ function Pagination({
     setIsActiveIndex(currentPage);
   }, [currentPage]);
 
-  const mobileRange = useCallback(
-    (e: MediaQueryListEvent) => {
-      if (e.matches) {
-        setMaxPageLimit(5);
-      } else {
-        setMaxPageLimit(maxPages);
-      }
-    },
-    [maxPages]
-  );
-
   //Checks if the browser width is within 780px, and if it is, setMaxPageLimit is set to 5
   useEffect(() => {
-    const media = window.matchMedia(`(max-width: ${780}px)`);
-    media.addEventListener("change", mobileRange);
-
-    return () => media.removeEventListener("change", mobileRange);
-  }, [mobileRange]);
+    isMobile ? setMaxPageLimit(5) : setMaxPageLimit(maxPages);
+  }, [isMobile, maxPages]);
 
   return (
     <div>
