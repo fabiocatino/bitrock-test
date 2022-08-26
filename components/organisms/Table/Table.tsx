@@ -84,12 +84,11 @@ function Table({ data }: TableProps) {
                       (fav: Character) => fav.id === char.id
                     ) ? (
                       <MdFavorite
-                        size={30}
+                        color="red"
                         onClick={() => removeFromFavoriteHandler(char)}
                       />
                     ) : (
                       <AddToFavoriteIcon
-                        size={30}
                         onClick={() => addToFavoriteHandler(char)}
                       />
                     )}

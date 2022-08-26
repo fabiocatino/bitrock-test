@@ -9,6 +9,8 @@ import {
   useRef,
   useState,
 } from "react";
+import { MdOutlineExpandLess, MdOutlineExpandMore } from "react-icons/md";
+import { AiOutlineClose } from "react-icons/ai";
 import { Character } from "types/character";
 import { Episode } from "types/episode";
 import {
@@ -26,10 +28,12 @@ interface ModalProps {
 export default function Modal({ close, character }: ModalProps): ReactElement {
   const card = useRef<HTMLDivElement | null>(null);
   const [episodesTitle, setEpisodesTitle] = useState<Episode[]>();
+  const [showEpisodes, setShowEpisodes] = useState(false);
 
   const handleClickOut = (e: MouseEvent<HTMLDivElement>) =>
     card?.current && !card.current.contains(e.target as Node) && close();
 
+  //This function takes everything after the last / in the string and pushes it into the array
   let episodesArray: string[] = [];
   character?.episode?.forEach((episode: any) =>
     episodesArray.push(episode.split("/").pop())
@@ -54,6 +58,11 @@ export default function Modal({ close, character }: ModalProps): ReactElement {
   return (
     <ModalContainer onClick={handleClickOut}>
       <CardContainer ref={card}>
+        <AiOutlineClose
+          id="close-modal"
+          onClick={close}
+          role="graphics-document"
+        />
         <ImageContainer>
           <Image layout="fill" src={character!.image} alt="image" />
         </ImageContainer>
@@ -64,14 +73,24 @@ export default function Modal({ close, character }: ModalProps): ReactElement {
         <Text>Origin: {character?.origin.name}</Text>
         <Text>Location: {character?.location.name}</Text>
 
-        {episodesTitle && episodesTitle.length >= 1 && (
-          <EpisodesContainer>
-            <h2>Appears in: </h2>
-            {episodesTitle?.map((episode: Episode, index: number) => (
-              <Text key={index}>{episode?.name}</Text>
-            ))}
-          </EpisodesContainer>
-        )}
+        <EpisodesContainer>
+          <h3>
+            Episodes:
+            {showEpisodes ? (
+              <MdOutlineExpandLess onClick={() => setShowEpisodes(false)} />
+            ) : (
+              <MdOutlineExpandMore onClick={() => setShowEpisodes(true)} />
+            )}
+          </h3>
+          {/* If the user clicks on the arrow, showEpisodes is set to true, and episode titles are shown if available */}
+          {showEpisodes && episodesTitle && episodesTitle.length >= 1 && (
+            <>
+              {episodesTitle?.map((episode: Episode, index: number) => (
+                <Text key={index}>{episode?.name}</Text>
+              ))}
+            </>
+          )}
+        </EpisodesContainer>
       </CardContainer>
     </ModalContainer>
   );

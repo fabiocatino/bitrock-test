@@ -7,7 +7,8 @@ export const Container = styled.div`
   flex-direction: column;
   gap: 0.5rem;
   padding: 1rem;
-  width: 800px;
+  width: 500px;
+  justify-content: center;
 
   @media screen and (max-width: 780px) {
     width: 100%;
@@ -22,6 +23,19 @@ export const TableContainer = styled.table`
   td {
     text-align: left;
     padding: 0.5rem;
+    min-width: 400px;
+    svg {
+      font-size: 30px;
+    }
+
+    @media screen and (max-width: 780px) {
+      min-width: 100%;
+      font-size: 0.8em;
+
+      svg {
+        font-size: 20px;
+      }
+    }
   }
 `;
 TableContainer.displayName = "TableContainer";

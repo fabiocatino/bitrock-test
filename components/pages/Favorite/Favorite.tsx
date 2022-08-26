@@ -11,7 +11,11 @@ function Favorite({}: FavoriteProps) {
   return (
     <Container>
       <Header>Rick and Morty</Header>
-      <Table {...{ data: localStorageFavorites }} />
+      {localStorageFavorites && localStorageFavorites.length >= 1 ? (
+        <Table {...{ data: localStorageFavorites }} />
+      ) : (
+        "Your favorite characters will appear here!"
+      )}
     </Container>
   );
 }

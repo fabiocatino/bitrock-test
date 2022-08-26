@@ -12,5 +12,9 @@ Container.displayName = "Container";
 export const Header = styled.h1`
   font-size: 2em;
   align-self: flex-start;
+
+  @media screen and (max-width: 780px) {
+    font-size: 1em;
+  }
 `;
 Header.displayName = "Header";

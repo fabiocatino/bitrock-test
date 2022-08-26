@@ -32,7 +32,16 @@ function HomePage({}: HomePageProps) {
     <Container>
       <Header>Rick and Morty</Header>
       <Table {...{ data: characters }} />
-      <Pagination {...{ pages, setCurrentPage }} />
+      <Pagination
+        {...{
+          pages,
+          currentPage,
+          setCurrentPage,
+          pageLimit: 5,
+          minPages: 0,
+          maxPages: 15,
+        }}
+      />
     </Container>
   );
 }
