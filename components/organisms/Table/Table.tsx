@@ -21,14 +21,14 @@ type TableProps = {
   setCharacters?: React.Dispatch<React.SetStateAction<Character[]>>;
 };
 
-function Table({ data, setCharacters }: TableProps) {
+function Table({ data }: TableProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [character, setCharacter] = useState<Character>();
   const [query, setQuery] = useState("");
-  const [isAsc, setIsAsc] = useState(false);
   const [localStorageFavorites, setLocalStorageFavorites] = useLocalStorage<
     any
   >("favorites", []);
+
   const router = useRouter();
 
   const handleClick = (char: Character) => {

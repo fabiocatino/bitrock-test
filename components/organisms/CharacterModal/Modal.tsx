@@ -50,7 +50,6 @@ export default function Modal({ close, character }: ModalProps): ReactElement {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   useEffect(() => {
     fetchEpisodesTitle();
   }, [fetchEpisodesTitle]);

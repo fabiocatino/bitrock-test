@@ -1,4 +1,3 @@
-import userEvent from "@testing-library/user-event";
 import { cleanup, render, screen } from "utils/test-utils";
 import Table from "./Table";
 
