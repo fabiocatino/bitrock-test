@@ -73,24 +73,26 @@ export default function Modal({ close, character }: ModalProps): ReactElement {
         <Text>Origin: {character?.origin.name}</Text>
         <Text>Location: {character?.location.name}</Text>
 
-        <EpisodesContainer>
-          <h3>
-            Episodes:
-            {showEpisodes ? (
-              <MdOutlineExpandLess onClick={() => setShowEpisodes(false)} />
-            ) : (
-              <MdOutlineExpandMore onClick={() => setShowEpisodes(true)} />
+        {episodesTitle && episodesTitle.length >= 1 && (
+          <EpisodesContainer>
+            <h3>
+              Episodes:
+              {showEpisodes ? (
+                <MdOutlineExpandLess onClick={() => setShowEpisodes(false)} />
+              ) : (
+                <MdOutlineExpandMore onClick={() => setShowEpisodes(true)} />
+              )}
+            </h3>
+            {/* If the user clicks on the arrow, showEpisodes is set to true, and episode titles are shown if available */}
+            {showEpisodes && (
+              <>
+                {episodesTitle?.map((episode: Episode, index: number) => (
+                  <Text key={index}>{episode?.name}</Text>
+                ))}
+              </>
             )}
-          </h3>
-          {/* If the user clicks on the arrow, showEpisodes is set to true, and episode titles are shown if available */}
-          {showEpisodes && episodesTitle && episodesTitle.length >= 1 && (
-            <>
-              {episodesTitle?.map((episode: Episode, index: number) => (
-                <Text key={index}>{episode?.name}</Text>
-              ))}
-            </>
-          )}
-        </EpisodesContainer>
+          </EpisodesContainer>
+        )}
       </CardContainer>
     </ModalContainer>
   );
