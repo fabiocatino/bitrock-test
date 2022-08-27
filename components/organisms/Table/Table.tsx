@@ -1,5 +1,7 @@
 import SearchBar from "atoms/SearchBar";
+import TableBody from "atoms/TableBody";
 import TableCell from "atoms/TableCell";
+import TableHead from "atoms/TableHead";
 import TableHeader from "atoms/TableHeader";
 import TableRow from "atoms/TableRow";
 import useLocalStorage from "hooks/useLocalStorage";
@@ -55,7 +57,7 @@ function Table({ data }: TableProps) {
       {isOpen && <Modal {...{ close: () => setIsOpen(false), character }} />}
       <SearchBar onChange={handleSearch} />
       <TableContainer>
-        <thead>
+        <TableHead>
           <TableRow>
             <TableHeader>Name </TableHeader>
             <TableHeader>
@@ -64,8 +66,8 @@ function Table({ data }: TableProps) {
                 : "Add to favorites"}
             </TableHeader>
           </TableRow>
-        </thead>
-        <tbody>
+        </TableHead>
+        <TableBody>
           {data &&
             data?.length >= 1 &&
             data
@@ -99,7 +101,7 @@ function Table({ data }: TableProps) {
                   </TableCell>
                 </TableRow>
               ))}
-        </tbody>
+        </TableBody>
       </TableContainer>
     </Container>
   );
